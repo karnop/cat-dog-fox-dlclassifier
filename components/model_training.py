@@ -4,9 +4,10 @@ import torch.optim as optim
 from torch.optim import lr_scheduler
 from loguru import logger
 from tqdm import tqdm
+from artifacts.artifacts import num_epochs, learning_rate
 
 # Training function
-def train_model(model, train_loader, val_loader, num_epochs=25, learning_rate=0.001):
+def train_model(model, train_loader, val_loader):
     criterion = nn.CrossEntropyLoss()  # Loss function for multi-class classification
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)  # Optimizer
 

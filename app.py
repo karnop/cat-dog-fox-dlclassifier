@@ -5,7 +5,7 @@ from pydantic import BaseModel
 from components.model_architecture import CNNModel  # Your CNN model code
 from io import BytesIO
 from PIL import Image
-from artifacts.artifacts import save_model_path
+from artifacts.artifacts import saved_model_path
 
 # Initialize the FastAPI app
 app = FastAPI()
@@ -21,7 +21,7 @@ transform = transforms.Compose([
 ])
 
 # Load the pre-trained model
-model_path = save_model_path  # Update this path to your saved model
+model_path = saved_model_path  # Update this path to your saved model
 model = CNNModel(num_classes=3)  # Update this if your model class differs
 model.load_state_dict(torch.load(model_path))
 model.to(device)

@@ -3,6 +3,9 @@ data/raw
 data/split
 data/animal-image-dataset-cats-dogs-and-foxes.zip
 
+#mlflow logs
+mlruns/
+
 # models
 models/
 
