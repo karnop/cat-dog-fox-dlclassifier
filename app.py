@@ -5,8 +5,7 @@ from pydantic import BaseModel
 from components.model_architecture import CNNModel  # Your CNN model code
 from io import BytesIO
 from PIL import Image
-
-save_model_path = "models/trained_model.pth"
+from artifacts.artifacts import save_model_path
 
 # Initialize the FastAPI app
 app = FastAPI()

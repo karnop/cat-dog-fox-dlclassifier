@@ -9,6 +9,7 @@ from exceptions.exception import handle_exception
 from components.model_architecture import CNNModel
 from components.model_training import train_model
 from components.model_evaluation import evaluate_model_on_test
+from artifacts.artifacts import save_model_path, raw_data_dir, split_data_dir
 import torch
 
 # Set up logging
@@ -17,9 +18,6 @@ logger.add(log_filename, rotation="1 MB", level="INFO")
 
 # main function
 def main():
-    raw_data_dir = "data/raw" 
-    split_data_dir = "data/split"
-    save_model_path = "models/trained_model.pth"
 
     if not os.path.exists(raw_data_dir):
         logger.error(f"Raw data directory '{raw_data_dir}' not found! download the data from the link in readme using kaggle cli")
