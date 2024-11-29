@@ -1,8 +1,6 @@
 # Animal Image Classification Pipeline
 
-This repository contains an end-to-end pipeline for classifying animal images (cats, dogs, and foxes) using PyTorch, FastAPI, and MLOps tools like DVC and MLflow. It demonstrates dataset preparation, model training, evaluation, and serving the model through an API.
-
----
+This repository contains an end-to-end pipeline for classifying animal images (cats, dogs, and foxes) using PyTorch, FastAPI, and MLOps tools like DVC and MLflow. It demonstrates dataset preparation, model training, evaluation, serving the model through an API, and a user interface using Next.js.
 
 ## Features
 
@@ -11,6 +9,8 @@ This repository contains an end-to-end pipeline for classifying animal images (c
 - **Model Training**: Trains a CNN model using PyTorch.
 - **Model Evaluation**: Computes accuracy and loss on validation and test sets.
 - **Model Serving**: Serves predictions through a FastAPI app.
+- **User Interface**:
+  - A Next.js-based frontend allows users to upload an image and view predictions.
 - **MLOps Integration**:
   - **DVC**: Tracks dataset and model versions, stores them on Google Drive.
   - **MLflow**: Logs metrics, parameters, and artifacts.
@@ -29,21 +29,31 @@ This repository contains an end-to-end pipeline for classifying animal images (c
 2. Create and activate a virtual environment:
 
    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-3. Install dependencies:
+3. Install backend dependencies:
 
    ```bash
-    pip install -r requirements.txt
+   pip install -r requirements.txt
    ```
 
-4. Configure DVC with Google Drive:
+4. Install frontend dependencies:
+
    ```bash
-    dvc remote add -d gdrive_remote gdrive:1yj9KK9hEbmK-CYGoqLT-9JHdRqY6jSuP
-    dvc push
+   cd animal-classification-ui
+   npm install
+   cd ..
    ```
+
+5. Configure DVC with Google Drive:
+   ```bash
+   dvc remote add -d gdrive_remote gdrive:1yj9KK9hEbmK-CYGoqLT-9JHdRqY6jSuP
+   dvc push
+   ```
+
+---
 
 ## Directory Structure
 
@@ -52,8 +62,8 @@ This repository contains an end-to-end pipeline for classifying animal images (c
 ├── components/
 │   ├── data_ingestion.py     # Handles dataset splitting
 │   ├── data_preprocessing.py # Preprocesses data for training
-│   ├── dvc_setup.py          # dvc setup
-│   ├── model_architecture.py # pytorch model architecture
+│   ├── dvc_setup.py          # DVC setup
+│   ├── model_architecture.py # PyTorch model architecture
 │   ├── model_training.py     # Trains and saves the model
 │   ├── model_evaluation.py   # Evaluates the trained model
 │
@@ -61,15 +71,21 @@ This repository contains an end-to-end pipeline for classifying animal images (c
 │   ├── artifacts.py          # Config file for storing paths
 ├── exceptions/
 │   ├── exception.py          # Custom exception handling
-├── logs/                     # run logs
-├── mlruns/                   # mlflow run logs
-├── models/                   # trained models
-├── notebooks/                # notebooks for experimentations
+├── logs/                     # Run logs
+├── mlruns/                   # MLflow run logs
+├── models/                   # Trained models
+├── notebooks/                # Notebooks for experimentation
 ├── pipeline/
 │   ├── training_pipeline.py  # Orchestrates the pipeline steps
-├── requirements.txt          # Project dependencies
+├── animal-classification-ui/ # Next.js UI files
+│   ├── app/                  # App Router-based structure
+│   ├── pages/                # Default pages
+│   ├── public/               # Static assets
+├── requirements.txt          # Backend dependencies
 ├── README.md                 # Project documentation
 ```
+
+---
 
 ## Usage
 
@@ -89,13 +105,36 @@ Run the FastAPI app to make predictions:
 python app.py
 ```
 
-### 3. Test the API
+The API will be available at `http://127.0.0.1:8000`.
+
+### 3. Run the Next.js Frontend
+
+Navigate to the `animal-classification-ui` directory and start the development server:
+
+```bash
+cd animal-classification-ui
+npm run dev
+```
+
+The UI will be available at `http://localhost:3000`.
+
+---
+
+## Testing the Application
+
+### Backend API
 
 Use Postman or `curl` to send an image for prediction:
 
 ```bash
 curl -X POST -F "file=@<image_path>" http://127.0.0.1:8000/predict
 ```
+
+### Frontend UI
+
+1. Open `http://localhost:3000` in your browser.
+2. Upload an image using the provided UI.
+3. View the classification result displayed below the upload box.
 
 ---
 
@@ -131,7 +170,7 @@ dvc pull
 
 - Add CI/CD pipelines for automated testing and deployment.
 - Extend support for more animal categories.
-- Integrate with cloud storage for production-grade deployments.
+- Integrate cloud storage for production-grade deployments.
 
 ---
 
@@ -145,4 +184,4 @@ This project is licensed under the [MIT License](LICENSE).
 
 - **Dataset**: [Kaggle - Animal Dataset](https://www.kaggle.com/datasets/snmahsa/animal-image-dataset-cats-dogs-and-foxes)
 
-- **Frameworks Used**: PyTorch, FastAPI, MLflow, DVC
+- **Frameworks Used**: PyTorch, FastAPI, Next.js, Tailwind CSS, MLflow, DVC

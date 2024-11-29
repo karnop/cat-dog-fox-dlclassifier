@@ -1,6 +1,7 @@
 import torch
 from torchvision import transforms
 from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from components.model_architecture import CNNModel  # Your CNN model code
 from io import BytesIO
@@ -9,6 +10,15 @@ from artifacts.artifacts import saved_model_path
 
 # Initialize the FastAPI app
 app = FastAPI()
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Your frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Set device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
