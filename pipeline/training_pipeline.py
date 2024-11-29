@@ -4,6 +4,7 @@ from loguru import logger
 from datetime import datetime
 from components.data_ingestion import split_dataset
 from components.dvc_setup import setup_dvc
+from components.data_preprocessing import load_data 
 from exceptions.exception import handle_exception
 
 # Set up logging
@@ -26,6 +27,10 @@ def main():
 
         #step 2: Track dataset with DVC
         # setup_dvc(split_data_dir)
+
+        # step 3: data loading 
+        # Load data with batch size of 32
+        train_loader, val_loader, test_loader = load_data(split_data_dir, batch_size=32)
 
     except Exception as e:
         handle_exception(e)
