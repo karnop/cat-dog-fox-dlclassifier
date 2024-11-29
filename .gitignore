@@ -1,5 +1,7 @@
 # data folder
-data/
+data/raw
+data/split
+data/animal-image-dataset-cats-dogs-and-foxes.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
