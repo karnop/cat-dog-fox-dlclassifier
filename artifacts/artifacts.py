@@ -6,4 +6,4 @@ saved_model_path = "models/trained_model.pth"
 
 # model training hyperparameters
 num_epochs = 10
-learning_rate=0.05
+learning_rate=0.001

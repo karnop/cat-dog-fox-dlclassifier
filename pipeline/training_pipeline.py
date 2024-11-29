@@ -31,7 +31,7 @@ def main():
         # log hypeparameters
         mlflow.log_param("epochs", num_epochs)
         mlflow.log_param("learning rate", learning_rate)
-        mlflow.log_artifact("artifactsartifacts.py")
+        mlflow.log_artifact("artifacts/artifacts.py")
 
 
         logger.info("Entering the training pipeline")
